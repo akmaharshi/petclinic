@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+	environment { 
+        myrepo = 'petclinic.git'
+		myvar = 'anil'
+    }
+	 parameters { string(name: 'MVN_OPTION', defaultValue: 'package', description: '') }
+	tools {
+		maven 'M3.6'
+	}
+	stages {
+		 
+		stage('checkout') {
+			steps {
+				git "https://github.com/anilkumar0306/$myrepo"
+			}
+    
+		}
+		stage('built') {
+			steps {
+				sh "mvn clean $MVN_OPTION"
+				echo "$myvar"
+			}
+		}
+		stage('test result') {
+			steps {
+				junit 'target/surefire-reports/*.xml'
+			}
+    
+		}
+		stage('archive') {
+			steps {
+				archiveArtifacts artifacts: 'target/*.?ar', followSymlinks: false
+			}
+    
+		}
+	}
+	post {
+		success {
+		notify('success')
+		}
+		failure {
+			notify('failure')
+		}
+	}
+}
+def notify(status){
+    emailext (
+		to: "sandeep.munna3@gmail.com",
+		subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+		body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+			<p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+    )
+}
