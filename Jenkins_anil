@@ -4,7 +4,7 @@ pipeline {
         myrepo = 'petclinic.git'
 		myvar = 'anil'
     }
-	
+	 parameters { string(name: 'MVN_OPTION', defaultValue: 'package', description: '') }
 	tools {
 		maven 'M3.6'
 	}
@@ -18,7 +18,7 @@ pipeline {
 		}
 		stage('built') {
 			steps {
-				sh 'mvn clean package'
+				sh "mvn clean $MVN_OPTION"
 				echo "$myvar"
 			}
 		}
