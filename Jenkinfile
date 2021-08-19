@@ -3,17 +3,22 @@ pipeline {
 	tools {
 		maven 'M3.6'
 	}
+	environment {
+             project_path='spring-boot-samples/spring-boot-sample-atmosphere'
+        }
 	stages {
-		stage('Sonar Scanner') {
+		*/stage('Sonar Scanner') {
 			steps {
 				withSonarQubeEnv('Sonar') {
     					sh "mvn sonar:sonar"
 				}
 			}
-		}
+		}/*
 		stage('Build') {
 			steps {
+				echo "${project_path}"
 				sh "mvn clean package"
+				
 			}
 		}
 		stage('Parallel Stages') {
