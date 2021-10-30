@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jen-agent1'}
+    agent { label 'jen-new'}
 
     environment {
         MVN_GOAL='package'
