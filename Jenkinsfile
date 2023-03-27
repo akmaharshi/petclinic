@@ -1,11 +1,11 @@
 pipeline {
     agent any
     stages { 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/akmaharshi/petclinic.git'
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 git 'https://github.com/akmaharshi/petclinic.git'
+//             }
+//         }
         stage('Build') {
             tools {
                 maven 'M3.9'
