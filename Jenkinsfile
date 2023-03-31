@@ -64,7 +64,7 @@ pipeline {
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
                             repository: 'maven-releases', 
-                            version: "4.2.{BUILD_NUMBER}"
+                            version: "4.2.${BUILD_NUMBER}"
                         )
                     }                
                 }
